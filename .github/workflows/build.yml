@@ -20,7 +20,11 @@ jobs:
       - name: Prepare app
         run: cp app_script.txt main.py
       - name: Build APK
-        run: buildozer android debug
+        env:
+          ACCEPT_ANDROID_SDK_LICENSES: yes
+        run: |
+          yes | buildozer android debug || true
+          buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
